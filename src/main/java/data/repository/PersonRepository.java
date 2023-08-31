@@ -9,28 +9,28 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.persistence.Column;
 
+import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
 public class PersonRepository extends BaseRepository<Person> {
 
-    private QueryBuilder.ComparisonOperators compOp;
-    private QueryBuilder.LogicalOperators logicalOp;
-    public Person findByName(String name, UUID id){
-        QueryBuilder queryBuilder = new QueryBuilder();
-        queryBuilder
-//                .addParam("name", name)
-//                .addParam("name", name, compOp.NOT_EQUALS)
-//                .addParam("name", name, logicalOp.OR)
-                //.addNotNullParam("name")
-                //.addNotNullParam("id")
+    public List<Person> getAll(){
+        return findAll().list();
+    }
+
+    public Integer updateName(String name, UUID id){
+        QueryBuilder builder = new QueryBuilder();
+        builder
                 .addLikeParam("name", name, QueryBuilder.TypeLike.BOTH)
-                .addLikeParam("name", name, QueryBuilder.TypeLike.INIT, logicalOp.OR)
+        ;
+        builder
+                .addUpdateParam("name","Alexe")
         ;
 
-        var query = queryBuilder.getQuery();
-        var param = queryBuilder.getParams();
-        var iteration = queryBuilder.getIteration();
-        return find(query, param).firstResult();
+        var query = builder.getQuery();
+        var param = builder.getParams();
+        var iteration = builder.getIteration();
+        return update(query, param);
     }
 }

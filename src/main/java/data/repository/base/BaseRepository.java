@@ -5,4 +5,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 
 
 public class BaseRepository<T> implements PanacheRepository<T> {
+    
 }

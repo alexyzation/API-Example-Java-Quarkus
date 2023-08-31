@@ -15,6 +15,7 @@ public class QueryBuilder {
 
     private final List<Params> params = new ArrayList<>();
     private final List<Query> queries = new ArrayList<>();
+    private final List<Query> updateQueries = new ArrayList<>();
     private Integer iteration = 0;
 
     public QueryBuilder addParam(String paramName, Object paramValue) {
@@ -115,6 +116,20 @@ public class QueryBuilder {
         iteration++;
         return this;
     }
+
+    public QueryBuilder addUpdateParam(String paramName, Object paramValue){
+        var logicalOperator = LogicalOperators.AND.value;
+
+        var param = newParams(paramName,paramValue.toString());
+        params.add(param);
+
+        var query = newQuery(paramName, ComparisonOperators.EQUALS.value, logicalOperator);
+        updateQueries.add(query);
+
+        iteration++;
+        return this;
+    }
+
     public String formatQuery(String key, String comparator, Object value){
         if(comparator.toLowerCase()==SpecialOperations.IS_NULL.value || comparator.toLowerCase()==SpecialOperations.NOT_NULL.value){
             return  String.format("%s %s", key, comparator);
@@ -137,6 +152,22 @@ public class QueryBuilder {
     }
     public String getQuery() {
         StringBuilder finalString = new StringBuilder();
+
+        if(!updateQueries.isEmpty()){
+            var loop = 0;
+            for (Query query: updateQueries) {
+                if(loop==0){
+                    query.setLogicalOperator("");
+                }
+                finalString
+                        .append(" ")
+                        .append(query.getLogicalOperator())
+                        .append(" ")
+                        .append(query.getQuery());
+                loop++;
+            }
+            finalString.append(" WHERE ");
+        }
 
         var loop = 0;
         for (Query query: queries) {
