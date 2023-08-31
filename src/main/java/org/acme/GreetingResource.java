@@ -21,7 +21,7 @@ public class GreetingResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public Person hello() {
-        var person = personRepository.findByName("Alex", UUID.fromString("31000000-0000-0000-0000-000000000000"));
+        var person = personRepository.findByName("ex", UUID.fromString("31000000-0000-0000-0000-000000000000"));
         return person;
         //return new Person();
     }
