@@ -8,29 +8,47 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.inject.Inject;
 import jakarta.persistence.Column;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.UUID;
 
 @ApplicationScoped
+@Slf4j
 public class PersonRepository extends BaseRepository<Person> {
 
     public List<Person> getAll(){
         return findAll().list();
     }
 
-    public Integer updateName(String name, UUID id){
+    public Person getById(UUID id){
         QueryBuilder builder = new QueryBuilder();
-        builder
-                .addLikeParam("name", name, QueryBuilder.TypeLike.BOTH)
-        ;
-        builder
-                .addUpdateParam("name","Alexe")
-        ;
+        builder.addParam("id", id);
+        return find(builder.getQuery(),builder.getParams()).firstResult();
+    }
 
-        var query = builder.getQuery();
-        var param = builder.getParams();
-        var iteration = builder.getIteration();
-        return update(query, param);
+    public List<Person> getAllEnabled(){
+        QueryBuilder builder = new QueryBuilder();
+        builder.addParam("enabled", true);
+        return find(builder.getQuery(),builder.getParams()).list();
+    }
+
+    public void save(Person person){
+        persist(person);
+    }
+
+    public int update(Person person){
+        return update(person);
+    }
+
+    public void deleteEntity(Person person){
+        delete(person);
+    }
+
+    public Long deleteEntityByCpf(String cpf){
+        QueryBuilder builder = new QueryBuilder();
+        builder.addParam("cpf", cpf);
+
+        return delete(builder.getQuery(),builder.getParams());
     }
 }

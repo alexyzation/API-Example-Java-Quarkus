@@ -21,7 +21,7 @@ public class QueryBuilder {
     public QueryBuilder addParam(String paramName, Object paramValue) {
         var logicalOperator = LogicalOperators.AND.value;
 
-        var param = newParams(paramName,paramValue.toString());
+        var param = newParams(paramName,paramValue);
         params.add(param);
 
         var query = newQuery(paramName, ComparisonOperators.EQUALS.value, logicalOperator);
@@ -33,7 +33,7 @@ public class QueryBuilder {
     public QueryBuilder addParam(String paramName, Object paramValue, ComparisonOperators comparisonOperator) {
         var logicalOperator = LogicalOperators.AND.value;
 
-        var param = newParams(paramName,paramValue.toString());
+        var param = newParams(paramName,paramValue);
         params.add(param);
 
         var query = newQuery(paramName, comparisonOperator.value, logicalOperator);
@@ -43,7 +43,7 @@ public class QueryBuilder {
         return this;
     }
     public QueryBuilder addParam(String paramName, Object paramValue, LogicalOperators logicalOperator) {
-        var param = newParams(paramName,paramValue.toString());
+        var param = newParams(paramName,paramValue);
         params.add(param);
 
         var query = newQuery(paramName, ComparisonOperators.EQUALS.value, logicalOperator.value);
@@ -53,7 +53,7 @@ public class QueryBuilder {
         return this;
     }
     public QueryBuilder addParam(String paramName, Object paramValue, ComparisonOperators comparisonOperator, LogicalOperators logicalOperator) {
-        var param = newParams(paramName,paramValue.toString());
+        var param = newParams(paramName,paramValue);
         params.add(param);
 
         var query = newQuery(paramName, comparisonOperator.value, logicalOperator.value);
@@ -120,7 +120,7 @@ public class QueryBuilder {
     public QueryBuilder addUpdateParam(String paramName, Object paramValue){
         var logicalOperator = LogicalOperators.AND.value;
 
-        var param = newParams(paramName,paramValue.toString());
+        var param = newParams(paramName,paramValue);
         params.add(param);
 
         var query = newQuery(paramName, ComparisonOperators.EQUALS.value, logicalOperator);
@@ -143,10 +143,10 @@ public class QueryBuilder {
         query.setLogicalOperator(logicalOperator);
         return query;
     }
-    public Params newParams(String paramName, String paramValue){
+    public Params newParams(String paramName, Object paramValue){
         Params param = new Params();
         param.setKey(paramName);
-        param.setValue(paramValue.toString());
+        param.setValue(paramValue);
         param.setKeyUnique(paramName+iteration);
         return param;
     }
@@ -248,7 +248,7 @@ public class QueryBuilder {
     @Setter
     public class Params{
         public String key;
-        public String value;
+        public Object value;
         public String keyUnique;
     }
 }
