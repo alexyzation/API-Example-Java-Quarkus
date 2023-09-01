@@ -39,6 +39,7 @@ public class PersonResource {
     @Operation(summary = "Retrieve all people")
     @APIResponses({
             @APIResponse(responseCode = "200", description = "Persons found"),
+            @APIResponse(responseCode = "404", description = "Person not found"),
             @APIResponse(responseCode = "500", description = "Internal server error")
     })
     public Response getAllPersons() {

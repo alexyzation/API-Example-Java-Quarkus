@@ -158,12 +158,14 @@ public class QueryBuilder {
             for (Query query: updateQueries) {
                 if(loop==0){
                     query.setLogicalOperator("");
+                    finalString.append(query.getQuery());
+                }else{
+                    finalString
+                            .append(" ")
+                            .append(",")
+                            .append(" ")
+                            .append(query.getQuery());
                 }
-                finalString
-                        .append(" ")
-                        .append(query.getLogicalOperator())
-                        .append(" ")
-                        .append(query.getQuery());
                 loop++;
             }
             finalString.append(" WHERE ");

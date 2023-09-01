@@ -37,11 +37,21 @@ public class PersonRepository extends BaseRepository<Person> {
         persist(person);
     }
 
-    public int update(Person person){
-        return update(person);
+    public Integer updatePersonEntity(Person person){
+        QueryBuilder builder = new QueryBuilder();
+        builder.addParam("id", person.getId());
+        builder
+                .addUpdateParam("cpf", person.getCpf())
+                .addUpdateParam("birthDate", person.getBirthDate())
+                .addUpdateParam("name", person.getName())
+                .addUpdateParam("surName", person.getSurName());
+        ;
+        var gq = builder.getQuery();
+        var gp = builder.getParams();
+        return update(builder.getQuery(),builder.getParams());
     }
 
-    public void deleteEntity(Person person){
+    public void deletePersonEntity(Person person){
         delete(person);
     }
 

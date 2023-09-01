@@ -41,9 +41,10 @@ public class PersonUseCaseImpl implements PersonUseCase {
     public boolean updatePerson(UUID id, Person person) {
         Person existingPerson = getPersonById(id);
         if (existingPerson != null) {
-            person.setId(existingPerson.getId());
-            personRepository.update(person);
-            return true;
+            var ret = personRepository.updatePersonEntity(person);
+            if(ret==1){
+                return true;
+            }
         }
         return false;
     }
@@ -53,7 +54,7 @@ public class PersonUseCaseImpl implements PersonUseCase {
     public boolean deletePerson(UUID id) {
         Person existingPerson = getPersonById(id);
         if (existingPerson != null) {
-            personRepository.deleteEntity(existingPerson);
+            personRepository.deletePersonEntity(existingPerson);
             return true;
         }
         return false;
