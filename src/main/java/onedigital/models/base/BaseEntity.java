@@ -1,4 +1,4 @@
-package infra.models.base;
+package onedigital.models.base;
 
 import jakarta.persistence.*;
 import lombok.Getter;

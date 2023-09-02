@@ -1,15 +1,12 @@
-package data.utils;
+package onedigital.data.utils;
 
-import io.quarkus.arc.All;
 import io.quarkus.panache.common.Parameters;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class QueryBuilder {
 

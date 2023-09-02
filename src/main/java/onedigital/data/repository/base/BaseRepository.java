@@ -1,4 +1,4 @@
-package data.repository.base;
+package onedigital.data.repository.base;
 
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;

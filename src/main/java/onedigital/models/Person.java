@@ -1,8 +1,7 @@
-package infra.models;
+package onedigital.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import infra.models.base.BaseEntity;
+import onedigital.models.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 

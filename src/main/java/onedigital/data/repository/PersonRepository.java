@@ -1,13 +1,9 @@
-package data.repository;
+package onedigital.data.repository;
 
-import data.repository.base.BaseRepository;
-import data.utils.QueryBuilder;
-import infra.models.Person;
-import io.quarkus.panache.common.Parameters;
+import onedigital.data.repository.base.BaseRepository;
+import onedigital.data.utils.QueryBuilder;
+import onedigital.models.Person;
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.Dependent;
-import jakarta.inject.Inject;
-import jakarta.persistence.Column;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -37,17 +33,15 @@ public class PersonRepository extends BaseRepository<Person> {
         persist(person);
     }
 
-    public Integer updatePersonEntity(Person person){
+    public Integer updatePersonEntity(Person person, UUID id){
         QueryBuilder builder = new QueryBuilder();
-        builder.addParam("id", person.getId());
+        builder.addParam("id", id);
         builder
                 .addUpdateParam("cpf", person.getCpf())
                 .addUpdateParam("birthDate", person.getBirthDate())
                 .addUpdateParam("name", person.getName())
                 .addUpdateParam("surName", person.getSurName());
         ;
-        var gq = builder.getQuery();
-        var gp = builder.getParams();
         return update(builder.getQuery(),builder.getParams());
     }
 

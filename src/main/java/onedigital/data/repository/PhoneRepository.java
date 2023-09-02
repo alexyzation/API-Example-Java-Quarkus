@@ -1,8 +1,7 @@
-package data.repository;
+package onedigital.data.repository;
 
-import data.repository.base.BaseRepository;
-import infra.models.Person;
-import infra.models.Phone;
+import onedigital.data.repository.base.BaseRepository;
+import onedigital.models.Phone;
 import jakarta.enterprise.context.ApplicationScoped;
 
 import java.util.List;
