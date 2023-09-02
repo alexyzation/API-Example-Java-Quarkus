@@ -9,6 +9,7 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 
 import java.util.List;
 
+//Se usar Javax tem q colocar @Mapper(componentModel = "cdi")
 @Mapper(componentModel = "jakarta", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.SET_TO_NULL)
 public interface PersonMapper {
     @Mapping(target = "name", source = "request.name")

@@ -41,10 +41,13 @@ public class PersonResource {
             @APIResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response getAll() {
+        log.info("V1 - PersonResource - getAll()");
         List<PersonResponse> list = personService.getAll();
-        if(list!=null){
+        if (list != null) {
+            log.info("V1 - PersonResource - getAll() - Success");
             return Response.ok(list).build();
         }
+        log.info("V1 - PersonResource - getAll() - Not Found");
         return Response.status(Response.Status.NOT_FOUND).build();
     }
 
@@ -57,10 +60,13 @@ public class PersonResource {
             @APIResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public Response getPersonById(@PathParam("id") UUID id) {
+        log.info("V1 - PersonResource - getPersonById()");
         PersonResponse person = personService.getById(id);
         if (person != null) {
+            log.info("V1 - PersonResource - getPersonById() - Success");
             return Response.ok(person).build();
         } else {
+            log.info("V1 - PersonResource - getPersonById() - Not Found");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
@@ -73,7 +79,9 @@ public class PersonResource {
             @APIResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponse.class)))
     })
     public Response createPerson(@Valid PersonRequest person) {
+        log.info("V1 - PersonResource - createPerson()");
         PersonResponse personResponse = personService.create(person);
+        log.info("V1 - PersonResource - createPerson() - Created");
         return Response.status(Response.Status.CREATED).entity(personResponse).build();
     }
 
@@ -87,10 +95,13 @@ public class PersonResource {
             @APIResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response updatePerson(@PathParam("id") UUID id, @Valid PersonRequest request) {
+        log.info("V1 - PersonResource - updatePerson()");
         boolean updated = personService.update(id, request);
         if (updated) {
+            log.info("V1 - PersonResource - updatePerson() - Updated");
             return Response.noContent().build();
         } else {
+            log.info("V1 - PersonResource - updatePerson() - Not Found");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
@@ -104,10 +115,13 @@ public class PersonResource {
             @APIResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response deletePerson(@PathParam("id") UUID id) {
+        log.info("V1 - PersonResource - deletePerson()");
         boolean deleted = personService.delete(id);
         if (deleted) {
+            log.info("V1 - PersonResource - deletePerson() - Deleted");
             return Response.noContent().build();
         } else {
+            log.info("V1 - PersonResource - deletePerson() - Not Found");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
@@ -121,10 +135,13 @@ public class PersonResource {
             @APIResponse(responseCode = "500", description = "Internal server error", content = @Content(schema = @Schema(implementation = ErrorResponse.class))),
     })
     public Response deletePersonByCpf(@PathParam("cpf") String cpf) {
+        log.info("V1 - PersonResource - deletePersonByCpf()");
         boolean deleted = personService.deleteByCpf(cpf);
         if (deleted) {
+            log.info("V1 - PersonResource - deletePersonByCpf() - Deleted");
             return Response.noContent().build();
         } else {
+            log.info("V1 - PersonResource - deletePersonByCpf() - Not Found");
             return Response.status(Response.Status.NOT_FOUND).build();
         }
     }
